@@ -7,6 +7,11 @@ import jakarta.persistence.Id;
 public class Alien {
 	
 	
+	@Override
+	public String toString() {
+		return "Alien [aid=" + aid + ", name=" + name + ", colour=" + colour + "]";
+	}
+
 	@Id
 	private int aid;
 	private String name;
