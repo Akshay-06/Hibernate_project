@@ -6,15 +6,9 @@ import jakarta.persistence.Id;
 @Entity
 public class Alien {
 	
-	
-	@Override
-	public String toString() {
-		return "Alien [aid=" + aid + ", name=" + name + ", colour=" + colour + "]";
-	}
-
 	@Id
 	private int aid;
-	private String name;
+	private AlienName name;
 	private String colour;
 
 	public int getAid() {
@@ -25,11 +19,13 @@ public class Alien {
 		this.aid = aid;
 	}
 
-	public String getName() {
+	
+
+	public AlienName getName() {
 		return name;
 	}
 
-	public void setName(String name) {
+	public void setName(AlienName name) {
 		this.name = name;
 	}
 
@@ -39,6 +35,11 @@ public class Alien {
 
 	public void setColour(String colour) {
 		this.colour = colour;
+	}
+
+	@Override
+	public String toString() {
+		return "Alien [aid=" + aid + ", name=" + name + ", colour=" + colour + "]";
 	}
 
 }

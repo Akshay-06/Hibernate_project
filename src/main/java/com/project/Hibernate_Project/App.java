@@ -40,6 +40,26 @@ public class App {
 
 		
 		// Otherway to do it
+//		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
+//		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+//
+//		SessionFactory factory = meta.getSessionFactoryBuilder().build();
+//		Session session = factory.openSession();
+//		Transaction t = session.beginTransaction();
+//
+//		Alien e1 = new Alien();
+//		e1.setAid(3);
+//		e1.setName("Siva");
+//		e1.setColour("White");
+//
+//		session.persist(e1);
+//		t.commit();
+//		System.out.println("successfully saved");
+//		factory.close();
+//		session.close();
+
+		
+		
 		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
 		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
 
@@ -47,16 +67,24 @@ public class App {
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
 
-		Alien e1 = new Alien();
-		e1.setAid(3);
-		e1.setName("Siva");
-		e1.setColour("White");
+		AlienName aname = new AlienName();
+		aname.setFname("Samhitha");
+		aname.setLname("Reddy");
+		
+		Alien alien = new Alien();
+		alien.setAid(2);
+		alien.setName(aname);
+		alien.setColour("Black");
 
-		session.persist(e1);
+		session.persist(alien);
+		
+		System.out.println(alien);
+		
+		
 		t.commit();
 		System.out.println("successfully saved");
 		factory.close();
 		session.close();
-
+		
 	}
 }
