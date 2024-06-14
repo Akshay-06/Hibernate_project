@@ -3,20 +3,22 @@
 		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-    <session-factory>
-        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="hibernate.connection.password">Akshay-1029</property>
-        <property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/Hibernate_App</property>
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
-        <property name="hibernate.show_sql">true</property>
-        <mapping class="com.project.Hibernate_Project.Alien"/>
-        <mapping class="com.project.Hibernate_Project.User"/>
-        <mapping class="com.project.Hibernate_Project.Student"/>
-        <mapping class="com.project.Hibernate_Project.Laptop"/>
-        <mapping class="com.project.Hibernate_Project.Department"/>
-        
-        <mapping class="com.project.Hibernate_Project.Course"/>
-    </session-factory>
+	<session-factory>
+		<property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+		<property name="hibernate.connection.password">Akshay-1029</property>
+		<property name="hibernate.connection.url">jdbc:mysql://127.0.0.1:3306/Hibernate_App</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.internal.EhcacheRegionFactory</property>
+		<mapping class="com.project.Hibernate_Project.Alien" />
+		<mapping class="com.project.Hibernate_Project.User" />
+		<mapping class="com.project.Hibernate_Project.Student" />
+		<mapping class="com.project.Hibernate_Project.Laptop" />
+		<mapping class="com.project.Hibernate_Project.Department" />
+
+		<mapping class="com.project.Hibernate_Project.Course" />
+	</session-factory>
 </hibernate-configuration>

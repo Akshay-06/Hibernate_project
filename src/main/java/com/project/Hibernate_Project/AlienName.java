@@ -1,6 +1,6 @@
 package com.project.Hibernate_Project;
 
-import jakarta.persistence.Embeddable;
+import javax.persistence.Embeddable;
 
 @Embeddable
 public class AlienName {

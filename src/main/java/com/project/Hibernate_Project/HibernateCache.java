@@ -8,36 +8,12 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 
-/**
- * Hello world!
- *
- */
-public class App {
+public class HibernateCache {
+
 	public static void main(String[] args) {
-
+		// TODO Auto-generated method stub
 		
-		// One Way to do it
-//    	Alien alien = new Alien();
-//    	alien.setAid(2);
-//    	alien.setName("Samhitha");
-//    	alien.setColour("Black");
-//    	
-//    	Configuration cf = new Configuration().configure().addAnnotatedClass(Alien.class);
-//    	
-//
-//    	
-//        SessionFactory sf = cf.buildSessionFactory();
-//        
-//        Session session = sf.openSession();
-//        
-//        Transaction tx = session.beginTransaction();
-//        
-//        session.save(alien);
-//        
-//        tx.commit();
-
 		
-		// Otherway to do it
 //		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
 //		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
 //
@@ -45,18 +21,19 @@ public class App {
 //		Session session = factory.openSession();
 //		Transaction t = session.beginTransaction();
 //
-//		Alien e1 = new Alien();
-//		e1.setAid(3);
-//		e1.setName("Siva");
-//		e1.setColour("White");
-//
-//		session.persist(e1);
+//		// Here the DB query is executed only once. If you call the same query again it'll retrieve from First Level Cache
+//		// It'll work for the same session only. If it's different session then First level Cache doesn't work
+//		
+//		Alien alien = session.get(Alien.class,2);
+//		System.out.println(alien);
+//		
+//		Alien alien1 = session.get(Alien.class,2);
+//		System.out.println(alien1);
+//		
 //		t.commit();
-//		System.out.println("successfully saved");
 //		factory.close();
 //		session.close();
 
-		
 		
 		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
 		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
@@ -64,25 +41,28 @@ public class App {
 		SessionFactory factory = meta.getSessionFactoryBuilder().build();
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
-
-		AlienName aname = new AlienName();
-		aname.setFname("Samhitha");
-		aname.setLname("Reddy");
 		
-		Alien alien = new Alien();
-		alien.setAid(2);
-		alien.setName(aname);
-		alien.setColour("Black");
-
-		session.persist(alien);
-		
+		Alien alien = session.get(Alien.class,2);
 		System.out.println(alien);
 		
-		
 		t.commit();
-		System.out.println("successfully saved");
-		factory.close();
 		session.close();
 		
+		
+		// Since we enabled EhCache, even if we have different sessions the DB will be called only once for the same query.
+		
+		Session session1 = factory.openSession();
+		Transaction t1 = session1.beginTransaction();
+		
+		Alien alien1 = session1.get(Alien.class,2);
+		System.out.println(alien1);
+		
+		t1.commit();
+		session1.close();
+		
+		factory.close();
+
+		
 	}
+
 }

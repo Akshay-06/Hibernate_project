@@ -1,9 +1,14 @@
 package com.project.Hibernate_Project;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 
-@Entity
+import javax.persistence.Id;
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+
+@javax.persistence.Entity
+@javax.persistence.Cacheable
+@Cache(usage=CacheConcurrencyStrategy.READ_ONLY)
 public class Alien {
 	
 	@Id
