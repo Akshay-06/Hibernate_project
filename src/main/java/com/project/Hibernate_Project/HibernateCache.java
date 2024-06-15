@@ -7,13 +7,13 @@ import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.query.Query;
 
 public class HibernateCache {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		
+
 //		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
 //		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
 //
@@ -34,35 +34,70 @@ public class HibernateCache {
 //		factory.close();
 //		session.close();
 
-		
+//		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
+//		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
+//
+//		SessionFactory factory = meta.getSessionFactoryBuilder().build();
+//		Session session = factory.openSession();
+//		Transaction t = session.beginTransaction();
+//		
+//
+//		Alien alien = session.get(Alien.class,2);
+//		System.out.println(alien);
+//		
+//		t.commit();
+//		session.close();
+//		
+//		// Since we enabled EhCache, even if we have different sessions the DB will be called only once for the same query.
+//		
+//		Session session1 = factory.openSession();
+//		Transaction t1 = session1.beginTransaction();
+//		
+//		Alien alien1 = session1.get(Alien.class,2);
+//		System.out.println(alien1);
+//		
+//		t1.commit();
+//		session1.close();
+//		
+//		factory.close();
+
+		// Hibernate second level cache using queries
+
 		StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure().build();
 		Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();
 
 		SessionFactory factory = meta.getSessionFactoryBuilder().build();
 		Session session = factory.openSession();
 		Transaction t = session.beginTransaction();
-		
-		Alien alien = session.get(Alien.class,2);
+
+		Query q1 = session.createQuery("from Alien where aid=2");
+
+		q1.setCacheable(true);
+
+		Alien alien = (Alien) q1.uniqueResult();
 		System.out.println(alien);
-		
+
 		t.commit();
 		session.close();
-		
-		
-		// Since we enabled EhCache, even if we have different sessions the DB will be called only once for the same query.
-		
+
+		// Since we enabled EhCache, even if we have different sessions the DB will be
+		// called only once for the same query.
+
 		Session session1 = factory.openSession();
 		Transaction t1 = session1.beginTransaction();
-		
-		Alien alien1 = session1.get(Alien.class,2);
+
+		Query q2 = session1.createQuery("from Alien where aid=2");
+
+		q2.setCacheable(true);
+
+		Alien alien1 = (Alien) q2.uniqueResult();
 		System.out.println(alien1);
-		
+
 		t1.commit();
 		session1.close();
-		
+
 		factory.close();
 
-		
 	}
 
 }
