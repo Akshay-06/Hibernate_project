@@ -6,6 +6,10 @@ import javax.persistence.Id;
 @Entity
 public class Laptop {
 
+	@Override
+	public String toString() {
+		return "Laptop [lid=" + lid + ", lname=" + lname + "]";
+	}
 	@Id
 	private int lid;
 	private String lname;
